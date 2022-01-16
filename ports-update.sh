@@ -4,6 +4,8 @@
 LOGDIR=/var/log/ports-update
 LOG=$LOGDIR/ports-update.log
 NSYSLOG=/etc/newsyslog.d/ports-update.conf
+PORT=/opt/local/bin/port
+REBOOTDELAY=180
 
 if [ "$EUID" -ne 0 ]; then
     echo "[ERROR]: Please run as root"
@@ -26,7 +28,10 @@ else
         mkdir -p $LOGDIR
     fi
     echo "Updating MacPorts base:" >> $LOG
-    port selfupdate -v >> $LOG
+    echo "[DEBUG]: Uptime at the moment of ports update $(uptime)" >> $LOG
+    echo "[DEBUG]: Will wait $REBOOTDELAY seconds to let the networking service to wake up" >> $LOG
+    sleep $REBOOTDELAY 
+    $PORT selfupdate >> $LOG
     if [ $? -eq 0 ]; then
         echo -e "MacPorts base sources updated, consider to upgrade outdated ports with:\n\tport upgrade outdated " | tee -a $LOG
         echo -e "************************************\n" >> $LOG

@@ -12,4 +12,12 @@ Is helpful to have regular updates of the MacPorts base, sometimes this process 
 * Clone the repo or just copy `ports-update.sh` in your Mac OSX workstation filesystem.
 * Make sure `ports-update.sh` has execution rights
 * Become root and create a cron entry via terminal with just typing `crontab -e` and edit the cron to run the script at your will 
- 
+
+## Cron example
+
+**Sugestion:** Use `@reboot` to make sure the update is done on each restart, unless your workstation will be powered on that is maybe the best approach to make sure it is executed, otherwise you can loose updates if your Mac is powered off, also the use of `MAILTO` is strongly sugested to receive alerts via email in regards unsuccessful cron runs, once you become root you can edit your cron with crontab -e and type something like (with your email address and the right path of the shell script to be run):
+
+```
+MAILTO="your@mail.here"
+@reboot /bin/bash /The/path/to/ports-update.sh &
+```
