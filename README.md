@@ -1,4 +1,4 @@
-# MacPorst-update-cron
+# MacPorts-update-cron
 
 This repo is intended to host a simple bash script to be run by a cron on your Mac OSX to perform regular updates of the MacPorts base
 
